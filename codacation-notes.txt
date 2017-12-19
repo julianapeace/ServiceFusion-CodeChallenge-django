@@ -1,0 +1,31 @@
+Codacation Notes
+_________________
+
+-git clone repo
+-pipenv install --python 3.6 --skip-lock
+
+django-q: decide # of workers who will hang around and wait for a task to drop into Redis. Need middleware, paul used Redis DB. He used free layer in heroku postgres and redis. general practice to make all async stuff in tasks.py
+
+django import async -> wrapping a task in async tosses it into redis. And q workers pick it up.
+
+backend router:
+catches all URL not matching in django. If not match, kicks it off to the front end.
+
+Frontend:
+connecting vues
+has gulp watch waiting for any change in less and js files in coda dir. Then compiles it to a different folter in dist dir.
+
+@property decorator turns methods into 'getters', make it look like attributes.
+@setattr decorate turns the same method into 'setters', now can create a totally different method that will take in an argument and manipulate it (and/or save it in the db)
+
+in manage.py: #no need dotenv, pipenv takes care of that.
+
+In django, he has only one template bc it's a single page app. there's only one views. That view calls the ID of the x-template script tag on the base html page. This is not vue's standard way, paul's work around.
+
+in account app, models, he customizes the Django's User model by inheriting from AbstractUser. It comes with all the things User comes with and now you can add to it. Set the custom user model to Auth user in settings > auth.py with AUTH_USER_MODEL = 'account.User'
+
+GITHUB:
+go to github>settings>create github project > get api keys. Import that to .env.
+Paul was glad to the whole project in graphql but turns out github doesn't have a fully developered grpahql yet. So he had to do just one part in graphql, the rest with regular api calls.
+
+magic steps -> When an admin on codacation adds an assignment from inside the app, front end has button that triggers a link. that link belongs to the back. which makes an graphql call to github. Returns the data to the front. returns a promise with response.data.
